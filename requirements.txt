@@ -1,0 +1,9 @@
+fastapi
+ormar
+databases
+sqlalchemy
+httpx
+asyncpg
+loguru==0.5.3
+python-multipart
+starsessions[redis]
