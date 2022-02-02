@@ -10,8 +10,6 @@ from app.routes.ccpa import ccpa_route
 from app.routes.main import main_router
 from app.db import database
 from app.core.config import config
-from starsessions import SessionMiddleware
-from starsessions.backends.redis import RedisBackend
 
 
 app = FastAPI()

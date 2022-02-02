@@ -13,8 +13,6 @@ class TrackHit(ormar.Model):
     s1:str = ormar.String(max_length = 250, nullable = True)
     s2:str = ormar.String(max_length = 250, nullable = True)
     s3:str = ormar.String(max_length = 250, nullable = True)
-    s4:str = ormar.String(max_length = 250, nullable = True)
-    s5:str = ormar.String(max_length = 250,  nullable = True)
 
     # provide your custom init function
     def __init__(self, **kwargs):

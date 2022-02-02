@@ -12,7 +12,7 @@ class DevConfig(BaseConfig):
 	POSTGRES_HOST:str = os.environ.get("POSTGRES_HOST")
 	POSTGRES_USER:str = os.environ.get("POSTGRES_USER")
 	POSTGRES_PASSWORD:str =os.environ.get("POSTGRES_PASSWORD")
-	POSTGRES_PORT:int = os.environ.get("POSTGRES_PORT")
+	POSTGRES_PORT:int = int(os.environ.get("POSTGRES_PORT"))
 	POSTGRES_DB:str = os.environ.get("POSTGRES_DB")
 	DATABASE_URL:str = f"postgresql+asyncpg://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
 	@property

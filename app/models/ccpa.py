@@ -4,8 +4,6 @@ from app.db import BaseMeta
 from app.models.track import TrackHit
 from app.enums.ccpa import CCPARequestType
 
-
-
 class CCPA(ormar.Model):
     class Meta(BaseMeta):
         tablename = "ccpa"

@@ -10,12 +10,19 @@ lead_router = APIRouter()
 @lead_router.post("/create")
 async def createlead(*, request:Request, request_data: RequestsHeaders = Depends(RequestsHeaders)):
 	body = await request.json()
-	if request_data.hit:
-		hit = await TrackHit.objects.get(request_data.hit)
+	email = body['email']
+	phone = body['phone']
+	existing_lead = await Lead.objects.get_or_none(email = email, phone = phone)
+	if not existing_lead:
+		if request_data.hit:
+			hit = await TrackHit.objects.get(request_data.hit)
+		else:
+			hit = await TrackHit(referer=request_data.referer, user_agent=request_data.user_agent,ip_address=request_data.ip_address).save()
+		lead = Lead(**body, hit = hit)
+		await lead.save()
+		response = JSONResponse(status_code=200, content={"message": "Lead created successfully","success":True})
+		response.set_cookie("hit", hit.id)
 	else:
-		hit = await TrackHit(referer=request_data.referer, user_agent=request_data.user_agent,ip_address=request_data.ip_address).save()
-	lead = Lead(**body, hit = hit)
-	await lead.save()
-	response = JSONResponse(status_code=200, content={"message": "Lead created successfully"})
-	response.set_cookie("hit", hit.id)
+		response = JSONResponse(status_code=200, content={"message": "Lead already exists","success":False})
+
 	return response

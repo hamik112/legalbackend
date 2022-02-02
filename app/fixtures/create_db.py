@@ -33,5 +33,6 @@ async def create_hit():
     await database.disconnect()
 
 if __name__=="__main__":
+    print(config.SYNC_DB_URL)
     _setup_database()
     asyncio.run(create_hit())
