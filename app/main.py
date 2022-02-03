@@ -1,6 +1,6 @@
 
 from fastapi import FastAPI,Header,Request,Path,Query
-from starlette.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
 from app.core.logger import init_logging,logger
 from app.routes.contact import contact_router
@@ -11,18 +11,12 @@ from app.routes.main import main_router
 from app.db import database
 from app.core.config import config
 
-origins = ["https://entitledtojustice.com",'https://www.entitledtojustice.com','https://api.entitledtojustice.com']
+origins = ["https://entitledtojustice.com",]
+origins = ['http://localhost:1234',]
 
-app = FastAPI()
-
-
-app.add_middleware(CORSMiddleware, allow_origins=origins, allow_credentials=True, allow_methods=["*"], allow_headers=["*"], expose_headers=["*"])
-init_logging()
-
-app.add_middleware(ProxyHeadersMiddleware,trusted_hosts="*")
-
-
-
+app = FastAPI(debug = True)
+app.add_middleware(ProxyHeadersMiddleware,trusted_hosts=origins)
+app.add_middleware(CORSMiddleware,allow_origins=origins,allow_credentials=True,allow_methods=["*"], allow_headers=["*"])
 
 app.include_router(contact_router,prefix="/contactus")
 app.include_router(lead_router,prefix="/lead")
@@ -46,4 +40,3 @@ async def shutdown() -> None:
         await database.disconnect()
 
 
-#app.include_router(main_router,prefix = "")

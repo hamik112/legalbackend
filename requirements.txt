@@ -1,4 +1,4 @@
-fastapi==latest
+fastapi
 ormar
 databases
 sqlalchemy
@@ -6,5 +6,5 @@ httpx
 asyncpg
 loguru==0.5.3
 python-multipart
-uvicorn==latest
-starlette==latest
+uvicorn
+starlette
