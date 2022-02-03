@@ -22,6 +22,7 @@ async def leads(*, request:Request, request_data: RequestsHeaders = Depends(Requ
 @lead_router.post("/lead/create")
 async def createlead(*, request:Request, request_data: RequestsHeaders = Depends(RequestsHeaders)):
 	body = await request.json()
+	logger.info(f"Leads: {body}")
 	email = body['email']
 	phone = body['phone']
 	existing_lead = await Lead.objects.get_or_none(email = email, phone = phone)
