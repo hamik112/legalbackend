@@ -30,7 +30,7 @@ async def createlead(*, request:Request, request_data: RequestsHeaders = Depends
 
 	email = body['email']
 	phone = body['phone']
-	existing_lead = await Lead.objects.filter(email = email, phone = phone).exists()
+	existing_lead = await Lead.objects.filter(ormar.and_(email = email, phone = phone)).exists()
 	if not existing_lead:
 		if request_data.hit:
 			hit = await TrackHit.objects.get(request_data.hit)
