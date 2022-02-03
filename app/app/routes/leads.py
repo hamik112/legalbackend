@@ -30,7 +30,7 @@ async def createlead(*, request:Request, request_data: RequestsHeaders = Depends
 
 	email = body['email']
 	phone = body['phone']
-	existing_lead = await Lead.objects.filer((Lead.email == email) & (Lead.phone == phone)).get_or_none()
+	existing_lead = await Lead.objects.filter((Lead.email == email) & (Lead.phone == phone)).get_or_none()
 	if not existing_lead:
 		if request_data.hit:
 			hit = await TrackHit.objects.get(request_data.hit)
