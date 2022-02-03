@@ -14,16 +14,13 @@ from app.core.config import config
 
 origins = ['https://api.entitledtojustice.com','https://entitledtojustice.com','https://www.entitledtojustice.com']
 expose_headers = ['X-Requested-With','Origin','Accept','Authorization','Content-Type']
-allowed_methods = ["POST","GET"]
-app.add_middleware(ProxyHeadersMiddleware,trusted_hosts="*")
-
-app.add_middleware(CORSMiddleware, allow_origins= = origins,allow_credentials =  True,allow_methods = allowed_methods, expose_headers
-
-=expose_headers)
-
 
 
 app = FastAPI()
+app.add_middleware(ProxyHeadersMiddleware,trusted_hosts="*")
+app.add_middleware(CORSMiddleware, allow_origins= = origins,allow_credentials =  True,allow_methods = ['*'], expose_headers=expose_headers)
+
+
 app.state.database = database
 init_logging()
 
