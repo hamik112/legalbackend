@@ -1,6 +1,6 @@
 
 from fastapi import FastAPI,Header,Request,Path,Query
-from uvicorn.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
 from app.core.logger import init_logging,logger
 from app.routes.contact import contact_router
@@ -14,6 +14,16 @@ from app.core.config import config
 
 
 app = FastAPI()
+
+
+app.add_middleware(ProxyHeadersMiddleware,trusted_hosts="*")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://entitledtojustice.com",'https://www.entitledtojustice.com','https://api.entitledtojustice.com'],
+	allow_methods=["*"],
+    allow_headers=["*"],
+    allow_credentials=True,
+)
 
 
 app.state.database = database
@@ -33,18 +43,10 @@ async def shutdown() -> None:
 
 
 
+
 app.include_router(contact_router,prefix="/contactus")
 app.include_router(lead_router,prefix="/lead")
 app.include_router(tracker_router,prefix="/track")
 app.include_router(ccpa_route,prefix="/ccpa")
 app.include_router(main_router,prefix = "")
 
-
-app.add_middleware(ProxyHeadersMiddleware,trusted_hosts="*")
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["https://entitledtojustice.com",'https://www.entitledtojustice.com','https://api.entitledtojustice.com'],
-    allow_methods=["*"],
-    allow_headers=["*"],
-    allow_credentials=True,
-)
