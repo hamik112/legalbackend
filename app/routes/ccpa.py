@@ -12,7 +12,7 @@ from app.core.consts import CCPA_SUCCESS_MESSAGE, CCPA_ERROR_MESSAGE
 ccpa_route = APIRouter()
 
 
-@ccpa_route.post("/create")
+@ccpa_route.post("/ccpa/create")
 async def ccpa_create(*, request:Request, request_data: RequestsHeaders = Depends(RequestsHeaders)):
 	body = await request.json()
 	if request_data.hit:

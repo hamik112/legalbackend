@@ -10,7 +10,7 @@ from app.utils.dependencies import RequestsHeaders
 tracker_router = APIRouter()
 
 
-@tracker_router.get("/create")
+@tracker_router.get("/track/create")
 async def index(*, request:Request, request_data: RequestsHeaders = Depends(RequestsHeaders)):
 	hit_params = await request.form()
 	if not request_data.hit:

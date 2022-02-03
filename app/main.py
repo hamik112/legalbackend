@@ -22,10 +22,10 @@ app = FastAPI(debug = True)
 app.add_middleware(ProxyHeadersMiddleware,trusted_hosts=["*"])
 app.add_middleware(CORSMiddleware,allow_origins=origins,allow_credentials=True,allow_methods=["*"], allow_headers=["*"])
 
-app.include_router(contact_router,prefix="/contactus")
-app.include_router(lead_router,prefix="/lead")
-app.include_router(tracker_router,prefix="/track")
-app.include_router(ccpa_route,prefix="/ccpa")
+app.include_router(contact_router)
+app.include_router(lead_router)
+app.include_router(tracker_router)
+app.include_router(ccpa_route)
 
 
 app.state.database = database

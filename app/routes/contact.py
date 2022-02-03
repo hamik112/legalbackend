@@ -10,7 +10,7 @@ from app.core.consts import CONTACT_ERROR_MESSAGE,CONTACT_SUCCESS_MESSAGE
 contact_router = APIRouter()
 
 
-@contact_router.post("/create")
+@contact_router.post("/contactus/create")
 async def contactform(*, request: Request, request_data: RequestsHeaders = Depends(RequestsHeaders)):
 	body = await request.json()
 	if request_data.hit:

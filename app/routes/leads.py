@@ -8,18 +8,7 @@ from app.utils.dependencies import RequestsHeaders
 lead_router = APIRouter()
 
 
-@lead_router.get('/')
-async def test_lead(*,request, request_data: RequestsHeaders = Depends(RequestsHeaders)):
-	return JSONResponse(jsonable_encoder(request_data))
-
-
-
-@lead_router.post("/create2")
-async def createlead(*, request:Request, request_data: RequestsHeaders = Depends(RequestsHeaders)):
-	return JSONResponse(jsonable_encoder(request_data))
-
-
-@lead_router.post("/create")
+@lead_router.post("/lead/create")
 async def createlead(*, request:Request, request_data: RequestsHeaders = Depends(RequestsHeaders)):
 	body = await request.json()
 	email = body['email']
