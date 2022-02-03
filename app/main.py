@@ -12,19 +12,9 @@ from app.db import database
 from app.core.config import config
 
 
-origins = ['https://api.entitledtojustice.com','https://entitledtojustice.com','https://www.entitledtojustice.com']
-expose_headers = ['X-Requested-With','Origin','Accept','Authorization','Content-Type']
-
 
 app = FastAPI()
-app.add_middleware(ProxyHeadersMiddleware,trusted_hosts="*")
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["https://entitledtojustice.com",'https://www.entitledtojustice.com','https://api.entitledtojustice.com'],
-    allow_methods=["*"],
-    allow_headers=["*"],
-    allow_credentials=True,
-)
+
 
 app.state.database = database
 init_logging()
@@ -50,5 +40,11 @@ app.include_router(ccpa_route,prefix="/ccpa")
 app.include_router(main_router,prefix = "")
 
 
-
-
+app.add_middleware(ProxyHeadersMiddleware,trusted_hosts="*")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://entitledtojustice.com",'https://www.entitledtojustice.com','https://api.entitledtojustice.com'],
+    allow_methods=["*"],
+    allow_headers=["*"],
+    allow_credentials=True,
+)
