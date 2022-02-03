@@ -5,6 +5,7 @@ from app.models.lead import Lead
 from app.models.track import TrackHit
 from app.core.logger import logger
 from app.utils.dependencies import RequestsHeaders
+import ormar
 lead_router = APIRouter()
 
 
@@ -29,7 +30,7 @@ async def createlead(*, request:Request, request_data: RequestsHeaders = Depends
 
 	email = body['email']
 	phone = body['phone']
-	existing_lead = await Lead.objects.filter(email = email, phone = phone).get()
+	existing_lead = await Lead.objects.filter(ormar.and_(email = email, phone = phone)).get()
 	if not existing_lead:
 		if request_data.hit:
 			hit = await TrackHit.objects.get(request_data.hit)
