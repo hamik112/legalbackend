@@ -15,12 +15,12 @@ from app.routes.main import main_router
 from app.db import database
 from app.core.config import config
 
-origins = ["https://entitledtojustice.com","https://api.entitledtojustice.com",]
+origins = ["https://entitledtojustice.com","https://api.entitledtojustice.com",'https://legalfrontend.returnoftm.com']
 
 app = FastAPI(debug = True)
 
 app.add_middleware(ProxyHeadersMiddleware,trusted_hosts=origins)
-app.add_middleware(CORSMiddleware,allow_origins=origins,allow_credentials=True,allow_methods=["*"], allow_headers=["*"])
+app.add_middleware(CORSMiddleware,allow_origins=[origins],allow_credentials=True,allow_methods=["*"], allow_headers=["*"])
 
 app.include_router(contact_router,prefix="/contactus")
 app.include_router(lead_router,prefix="/lead")
