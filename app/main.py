@@ -11,7 +11,7 @@ from app.routes.main import main_router
 from app.db import database
 from app.core.config import config
 
-origins = ["https://entitledtojustice.com",]
+origins = ["https://entitledtojustice.com","https://entitledtojustice.com/"]
 origins = ['http://localhost:1234',]
 
 app = FastAPI(debug = True)
