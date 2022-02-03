@@ -33,10 +33,10 @@ async def createlead(*, request: Request, request_data: RequestsHeaders = Depend
 	try:
 		lead = Lead(**body, hit=hit)
 		await lead.save()
-		logger.error(f"Lead Saved ")
+		logger.info(f"Lead Saved ")
 		response = JSONResponse(status_code=200, content={"message": "Lead created successfully","success": True})
 	except:
-		logger.error(f"Error saving lead {body}")
+		logger.info(f"Error saving lead {body}")
 		response = JSONResponse(status_code=200, content={"message": "Lead already exists","success": False})
 	finally:
 		response.set_cookie("hit", hit.id)
