@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, Request, Header, Cookie
+from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from app.models.lead import Lead
 from app.models.track import TrackHit
@@ -6,6 +7,10 @@ from app.core.logger import logger
 from app.utils.dependencies import RequestsHeaders
 lead_router = APIRouter()
 
+
+@lead_router.get('/')
+async def test_lead(*,request, request_data: RequestsHeaders(RequestsHeaders)):
+	return JSONResponse(jsonable_encoder(request_data))
 
 @lead_router.post("/create")
 async def createlead(*, request:Request, request_data: RequestsHeaders = Depends(RequestsHeaders)):
