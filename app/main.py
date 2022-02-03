@@ -1,6 +1,6 @@
 
 from fastapi import FastAPI,Header,Request,Path,Query
-from starlette.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
 from app.core.logger import init_logging,logger
 from app.routes.contact import contact_router
@@ -11,12 +11,20 @@ from app.routes.main import main_router
 from app.db import database
 from app.core.config import config
 
-
+origins = ["https://entitledtojustice.com",'https://www.entitledtojustice.com','https://api.entitledtojustice.com']
 
 app = FastAPI()
 
 
 app.add_middleware(ProxyHeadersMiddleware,trusted_hosts="*")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[origins],
+	allow_methods=["*"],
+    allow_headers=["*"],
+    allow_credentials=True
+)
 
 
 
@@ -40,15 +48,6 @@ async def shutdown() -> None:
     database = app.state.database
     if database.is_connected:
         await database.disconnect()
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["https://entitledtojustice.com",'https://www.entitledtojustice.com','https://api.entitledtojustice.com'],
-	allow_methods=["GET","OPTION","POST"],
-    allow_headers=["*"],
-    allow_credentials=True,
-    expose_headers = ['Access-Control-Allow-Origin','Access-Control-Allow-Credentials','Access-Control-Allow-Headers','Access-Control-Allow-Methods'],
-)
 
 
 #app.include_router(main_router,prefix = "")
