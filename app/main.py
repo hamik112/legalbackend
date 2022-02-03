@@ -2,6 +2,10 @@
 from fastapi import FastAPI,Header,Request,Path,Query
 from fastapi.middleware.cors import CORSMiddleware
 from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
+from fastapi.middleware.trustedhost import TrustedHostMiddleware
+
+
+
 from app.core.logger import init_logging,logger
 from app.routes.contact import contact_router
 from app.routes.leads import lead_router
@@ -14,6 +18,12 @@ from app.core.config import config
 origins = ["https://entitledtojustice.com","https://entitledtojustice.com/"]
 
 app = FastAPI(debug = True)
+app.add_middleware(
+    TrustedHostMiddleware, allowed_hosts=["*"]
+)
+
+
+
 app.add_middleware(ProxyHeadersMiddleware,trusted_hosts=origins)
 app.add_middleware(CORSMiddleware,allow_origins=origins,allow_credentials=True,allow_methods=["*"], allow_headers=["*"])
 
