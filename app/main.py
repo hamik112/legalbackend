@@ -15,14 +15,9 @@ from app.routes.main import main_router
 from app.db import database
 from app.core.config import config
 
-origins = ["https://entitledtojustice.com","https://entitledtojustice.com/"]
+origins = ["https://entitledtojustice.com","https://api.entitledtojustice.com",]
 
 app = FastAPI(debug = True)
-app.add_middleware(
-    TrustedHostMiddleware, allowed_hosts=["*"]
-)
-
-
 
 app.add_middleware(ProxyHeadersMiddleware,trusted_hosts=origins)
 app.add_middleware(CORSMiddleware,allow_origins=origins,allow_credentials=True,allow_methods=["*"], allow_headers=["*"])
