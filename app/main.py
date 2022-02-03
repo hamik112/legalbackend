@@ -1,6 +1,6 @@
 
 from fastapi import FastAPI,Header,Request,Path,Query
-from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.cors import CORSMiddleware
 from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
 from app.core.logger import init_logging,logger
 from app.routes.contact import contact_router
@@ -16,15 +16,11 @@ origins = ["https://entitledtojustice.com",'https://www.entitledtojustice.com','
 app = FastAPI()
 
 
+app.add_middleware(CORSMiddleware, allow_origins=origins, allow_credentials=True, allow_methods=["*"], allow_headers=["*"], expose_headers=["*"])
+init_logging()
+
 app.add_middleware(ProxyHeadersMiddleware,trusted_hosts="*")
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[origins],
-	allow_methods=["*"],
-    allow_headers=["*"],
-    allow_credentials=True
-)
 
 
 
