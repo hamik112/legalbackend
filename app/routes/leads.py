@@ -9,7 +9,7 @@ lead_router = APIRouter()
 
 
 @lead_router.get('/')
-async def test_lead(*,request, request_data: RequestsHeaders(RequestsHeaders)):
+async def test_lead(*,request, request_data: RequestsHeaders = Depends(RequestsHeaders)):
 	return JSONResponse(jsonable_encoder(request_data))
 
 @lead_router.post("/create")
