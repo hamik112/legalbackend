@@ -17,10 +17,6 @@ origins = ['https://api.entitledtojustice.com','https://entitledtojustice.com','
 app = FastAPI()
 app.state.database = database
 init_logging()
-app.add_middleware(ProxyHeadersMiddleware,trusted_hosts="*")
-app.add_middleware(CORSMiddleware, allow_origins=origins,allow_credentials =  True,allow_methods =["POST","GET","OPTIONS","PUT","DELETE"],allow_headers = ["*"])expose_headers = ['X-Requested-With','Origin','Accept','Authorization','Content-Type']
-)
-
 
 @app.on_event("startup")
 async def startup() -> None:
@@ -45,3 +41,7 @@ app.include_router(main_router,prefix = "")
 
 
 
+app.add_middleware(ProxyHeadersMiddleware,trusted_hosts="*")
+app.add_middleware(CORSMiddleware, allow_origins=origins,allow_credentials =  True,allow_methods =["*"],allow_headers = ["*"],
+expose_headers = ['X-Requested-With','Origin','Accept','Authorization','Content-Type']
+)
