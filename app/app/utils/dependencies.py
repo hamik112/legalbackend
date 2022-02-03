@@ -16,7 +16,8 @@ class RequestsHeaders:
                  ):
         self.ip_address = request.client.host
         self.user_agent = user_agent
-        self.hit = hit
+        if hit != None:
+            self.hit = int(hit)
         self.referer = referer
         self.conversion = conversion
 
