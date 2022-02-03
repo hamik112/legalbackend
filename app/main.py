@@ -1,6 +1,6 @@
 
 from fastapi import FastAPI,Header,Request,Path,Query
-from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.cors import CORSMiddleware
 from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
 from app.core.logger import init_logging,logger
 from app.routes.contact import contact_router
@@ -26,6 +26,12 @@ app.add_middleware(
 )
 
 
+app.include_router(contact_router,prefix="/contactus")
+app.include_router(lead_router,prefix="/lead")
+app.include_router(tracker_router,prefix="/track")
+app.include_router(ccpa_route,prefix="/ccpa")
+
+
 app.state.database = database
 init_logging()
 
@@ -44,9 +50,4 @@ async def shutdown() -> None:
 
 
 
-app.include_router(contact_router,prefix="/contactus")
-app.include_router(lead_router,prefix="/lead")
-app.include_router(tracker_router,prefix="/track")
-app.include_router(ccpa_route,prefix="/ccpa")
-app.include_router(main_router,prefix = "")
-
+#app.include_router(main_router,prefix = "")
