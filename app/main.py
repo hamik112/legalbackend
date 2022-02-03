@@ -17,13 +17,7 @@ app = FastAPI()
 
 
 app.add_middleware(ProxyHeadersMiddleware,trusted_hosts="*")
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["https://entitledtojustice.com",'https://www.entitledtojustice.com','https://api.entitledtojustice.com'],
-	allow_methods=["*"],
-    allow_headers=["*"],
-    allow_credentials=True,
-)
+
 
 
 app.include_router(contact_router,prefix="/contactus")
@@ -47,7 +41,13 @@ async def shutdown() -> None:
     if database.is_connected:
         await database.disconnect()
 
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://entitledtojustice.com",'https://www.entitledtojustice.com','https://api.entitledtojustice.com'],
+	allow_methods=["GET","OPTION","POST"],
+    allow_headers=["*"],
+    allow_credentials=True,
+)
 
 
 #app.include_router(main_router,prefix = "")
