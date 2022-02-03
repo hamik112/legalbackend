@@ -23,7 +23,7 @@ async def leads(*, request:Request, request_data: RequestsHeaders = Depends(Requ
 async def createlead(*, request:Request, request_data: RequestsHeaders = Depends(RequestsHeaders)):
 	body = await request.json()
 	logger.info(f"Leads: {body}")
-	logger.info(f" Request Data : {request_data}")
+	logger.info(f" Request Data : {request_data.hit}")
 	email = body['email']
 	phone = body['phone']
 	existing_lead = await Lead.objects.filter(email = email, phone = phone).get()
