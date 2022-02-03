@@ -26,6 +26,6 @@ class Lead(ormar.Model):
     formula: str = ormar.String(max_length = 50)
     injuries: List[str]  = ormar.JSON(default=dict)
     trusted_form: str = ormar.String(max_length=1000,nullable=True)
-    original_url: str = ormar.String(max_length=255,default ="https://instanthomesecurityquotes.com")
+    original_url: str = ormar.String(max_length=255,default ="https://entitledtojustice.com")
     tcpa_text:str = ormar.String(max_length = 2000)
     hit: Optional[TrackHit] = ormar.ForeignKey(TrackHit)

@@ -12,12 +12,13 @@ from app.db import database
 from app.core.config import config
 
 
+origins = ['https://api.entitledtojustice.com','https://entitledtojustice.com','https://www.entitledtojustice.com']
+
 app = FastAPI()
 app.state.database = database
 init_logging()
 app.add_middleware(ProxyHeadersMiddleware,trusted_hosts="*")
-app.add_middleware(CORSMiddleware, allow_origins=["*"],allow_credentials =  True,allow_methods =["POST","GET"],
-                   expose_headers = ['X-Requested-With','Origin','Accept','Authorization','Content-Type']
+app.add_middleware(CORSMiddleware, allow_origins=origins,allow_credentials =  True,allow_methods =["POST","GET","OPTIONS","PUT","DELETE"],allow_headers = ["*"])expose_headers = ['X-Requested-With','Origin','Accept','Authorization','Content-Type']
 )
 
 
