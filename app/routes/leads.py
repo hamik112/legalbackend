@@ -12,6 +12,13 @@ lead_router = APIRouter()
 async def test_lead(*,request, request_data: RequestsHeaders = Depends(RequestsHeaders)):
 	return JSONResponse(jsonable_encoder(request_data))
 
+
+
+@lead_router.post("/create2")
+async def createlead(*, request:Request, request_data: RequestsHeaders = Depends(RequestsHeaders)):
+	return JSONResponse(jsonable_encoder(request_data))
+
+
 @lead_router.post("/create")
 async def createlead(*, request:Request, request_data: RequestsHeaders = Depends(RequestsHeaders)):
 	body = await request.json()
