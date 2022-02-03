@@ -5,4 +5,4 @@ COPY ./gunicorn_conf.py /gunicorn_conf.py
 
 RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
-COPY app /app/app
+COPY ./app /app
