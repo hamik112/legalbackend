@@ -18,8 +18,13 @@ expose_headers = ['X-Requested-With','Origin','Accept','Authorization','Content-
 
 app = FastAPI()
 app.add_middleware(ProxyHeadersMiddleware,trusted_hosts="*")
-app.add_middleware(CORSMiddleware, allow_origins= = origins,allow_credentials =  True,allow_methods = ['*'], expose_headers=expose_headers)
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+    allow_credentials=True,
+)
 
 app.state.database = database
 init_logging()
